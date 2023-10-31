@@ -63,7 +63,7 @@ function App() {
       name: "portfolio",
       path: "/portfolio",
       component: Test,
-      roles: ["admin", "", "manager", "super-admin"],
+      roles: ["admin", "user", "manager", "super-admin"],
       layout: mainLayoutConfig,
     },
   ];

@@ -15,6 +15,7 @@ const Layout = ({ children, isAuthorized, layout }) => {
         if (token) {
           await axios.get("/auth/current");
         }
+        setIsLoading(false);
       } catch (error) {
         console.log(error, "errorr");
       }
@@ -25,44 +26,48 @@ const Layout = ({ children, isAuthorized, layout }) => {
     }
   }, []);
 
+
+  
+
   return (
     <>
-      <div style={{ display: "flex", width: "100%", gap: "10px" }}>
-        <div
-          style={{
-            width: "15%",
-            background: "#001334",
-            height: "99vh",
-            color: "white",
-          }}
-        >
-          <DashboardSidebar />
-        </div>
-        
-        {isAuthorized ? (
+      {isLoading ? (
+        <p>loading .....</p>
+      ) : (
+        <div style={{ display: "flex", width: "100%", gap: "10px" }}>
           <div
             style={{
-              width: "100%",
-              background: "",
-            }}
-          >
-            {children}
+              width: "15%",
+              background: "#001334",
+              height: "99vh",
+              color: "white",
+            }}>
+            <DashboardSidebar />
           </div>
-        ) : (
-          <div>
-            <h2
+
+          {isAuthorized ? (
+            <div
               style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "85%",
-              }}
-            >
-              Unauthorized access to user
-            </h2>
-          </div>
-        )}
-      </div>
+                width: "100%",
+                background: "",
+              }}>
+              {children}
+            </div>
+          ) : (
+            <div>
+              <h2
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "85%",
+                }}>
+                Unauthorized access to user
+              </h2>
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 };
